@@ -1,0 +1,187 @@
+{% extends 'crud/base.html' %}
+
+
+{% block styles %}<link rel="stylesheet" href="\static\crud\css\style_Tree.css">{% endblock %}   
+{% block content %}
+    
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol>
+    <li>
+      <a href="../../">
+        Configuration
+      </a>
+    </li>
+    <li>
+      <a href="../../#aria_ex">
+        Results
+      </a>
+    </li>
+    
+  </ol>
+</nav>     	  
+</header>
+
+
+
+
+<fieldset>
+<div class=container>
+<div class=middle>
+<form action="/crud/viewer/" method="POST">
+    {% csrf_token %}
+    <label>Options</label>
+    <input type="hidden" name="list_m" id="list_m" value={{list_m}}/>
+    
+    <select name="leftsideMenu" id="leftsideMenu" size="10" onchange="this.form.submit()">
+    
+     
+     {% for i in options %} 
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+
+
+
+    {% csrf_token %}
+    <label>details log</label>
+     <div>
+         <textarea name="input"  cols="28" rows="19" id="output_center">{{Details}}</textarea> 
+     </div>
+
+
+</div>
+<div class=left>
+
+ <img id="pic1" src={% url 'Tree1' t1=1 %} class="center"  >
+
+</div>
+<div class=right>
+ 
+ <img id="pic2" src={% url 'Tree1' t1=2 %} class="center" >
+</div>
+</div>
+</fieldset>
+
+
+
+<br>
+
+
+<div class=middle>
+    {% csrf_token %}
+    <input type="hidden" name="list_m" id="list_m" value={{list_m}}/>
+    <label for="required-input">Metric: </label>
+    <select name="metric" id="metric" onchange="this.form.submit()">
+    
+    <option value="{{selected}}" selected>{{selected}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+
+</div>
+
+
+<div class=left>
+
+<select name="Tree1" id="Tree1" onchange="this.form.submit()">
+
+<option value="{{tree1}}" selected>{{tree1}}</option>
+{% for i in num_list %}
+<option value="{{ i }}">{{ i }}</option>
+{% endfor %}
+</select>
+   Newick: <input type="text" id="Newick1" name="LastName" value="{{new1}}">
+  
+</div>
+<div class=right>
+   
+<select name="Tree2" id="Tree2" onchange="this.form.submit()" onmousedown="if(this.options.length>8){this.size=8;}"  onblur="this.size=0;">
+
+<option value="{{tree2}}" selected>{{tree2}}</option>
+{% for i in num_list %}
+<option value="{{ i }}">{{ i }}</option>
+{% endfor %}
+</select>
+   Newick: <input type="text" id="Newick1" name="LastName" value="{{new2}}">
+   
+</div>
+</form>
+<input type="text" id=“user-input” autofocus=""><br>
+<button type="button" id=“sender”  >Send data</button><br>
+<p id="p-text">foo bar</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+
+var text = "test successful";
+
+var pic = document.getElementById('pic');
+
+function rouge() {
+    var e = document.getElementById("dropdown1");
+    var value = e.options[e.selectedIndex].value;
+    if(value=="MSD Plot"){
+    pic.src = "/crud/another_plot";
+    }
+    if(value=="Histogram"){
+    pic.src = "/crud/New_plot";
+    }
+    if(value=="HeatMap"){
+    pic.src = "/crud/plot";
+    }
+};
+
+
+ function check_user(myid)
+    {
+        var myform = document.getElementById('tree_form');
+        var e = document.getElementById("t1");
+        e.value="7"
+        
+       
+        
+
+    }
+
+ function Change_Center(x){
+   
+    if (x == "RF") {
+              document.getElementById('output_center').innerHTML =  document.getElementById("hiddenRF").value;
+    } 
+   if (x == "TD"){
+              document.getElementById('output_center').innerHTML =  document.getElementById("hidddenT").value;
+             }
+   if (x == "KC"){
+          document.getElementById('output_center').innerHTML =  document.getElementById("hiddenKC").value;
+          }
+   if (x == "QD"){
+          document.getElementById('output_center').innerHTML =  document.getElementById("hiddenQ").value;
+          }
+        
+};
+
+function Change(x) {
+   Change_matrix(x);
+   Change_Center(x);
+
+};
+ var table = document.getElementById("innerTable"),rIndex,cIndex;
+            
+            // table rows
+            for(var i = 1; i < table.rows.length; i++)
+            {
+                // row cells
+                for(var j = 0; j < table.rows[i].cells.length; j++)
+                {
+                    table.rows[i].cells[j].onclick = function()
+                    {
+                        rIndex = this.parentElement.rowIndex;
+                        cIndex = this.cellIndex+1;
+                        console.log("Row : "+rIndex+" , Cell : "+cIndex);
+                    };
+                }
+            }
+document.getElementById('appVis').addEventListener('click', rouge);
+
+</script>
+{% endblock %}

@@ -1,0 +1,273 @@
+legend {
+    background-color: #fff;
+    color: #000;\
+    
+    
+    padding: 3px 6px;
+}
+
+.output {
+    font: 1rem 'Fira Sans', sans-serif;
+}
+body {
+    background-image: url("Gray_test-plain-website-background.jpg");
+}
+.inv {
+    display: none;
+}
+
+
+   fieldset {
+        border: 1px solid lightgrey;
+        padding: 20px;
+        border-radius: 8px;
+        background: #f9f9f9;
+        padding: 5px;
+        vertical-align: top;
+        font-size: 11px;
+    }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 85%;
+  height: 90%;
+}
+.container {
+  float: left;
+  width: 95%;
+  height: 700px;
+  margin-bottom: auto;
+  margin-top: 40px;
+  
+}
+.left {
+  float: left;
+  width: 35%;
+  border: 5px solid lightgrey;
+  height: 95%;
+  margin: 5px;
+}
+.right {
+  float: left;
+  width: 35%;
+  border: 5px solid lightgrey;
+  height: 95%;
+  margin: 5px;
+}
+.middle {
+  float: left;
+  width: 15%;
+  border: 5px solid lightgrey;
+  height: 95%;
+  margin: 5px;
+  
+}
+#leftsideMenu{
+overflow-y:scroll; 
+overflow-x:scroll;
+height: 95%;
+width: 95%;
+}
+#leftsideMenu ul li {
+  border-bottom: 1px dashed lightgray;
+  background-color: cadetblue;
+}
+
+#leftsideMenu option {
+  padding: 8px 20px 8px 20px;
+  color: black;
+  display: block;
+}
+
+#leftsideMenu option:hover {
+  background-color: lightgreen;
+  transition: 0.5s;
+  padding-left: 30px;
+  padding-right: 10px;
+}
+nav ul ul {
+	display: none;
+}
+
+	nav ul li:hover > ul {
+		display: block;
+	}
+nav ul {
+	background: #efefef; 
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+	padding: 0 10px;
+	border-radius: 10px;  
+	list-style: none;
+	position: relative;
+	display: inline-table;
+    width: 97%;
+  
+}
+	nav ul:after {
+		content: ""; clear: both; display: block;
+	}
+
+nav ul li {
+	float: left;
+    
+}
+	nav ul li:hover {
+		background: #4b545f;
+		background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+		background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+		background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+        
+	}
+		nav ul li:hover a {
+			color: #fff;
+		}
+	
+	nav ul li a {
+		display: block; padding: 15px 40px;
+		color: #757575; text-decoration: none;
+        
+	}
+nav ul ul {
+	background: #5f6975; border-radius: 0px; padding: 0;
+	position: absolute; top: 100%;
+    width:33%
+}
+	nav ul ul li {
+		float: none; 
+		border-top: 1px solid #6b727c;
+		border-bottom: 1px solid #575f6a;
+		position: relative;
+	}
+		nav ul ul li a {
+			padding: 15px 40px;
+			color: #fff;
+		}	
+			nav ul ul li a:hover {
+				background: #4b545f;
+			}
+#innerTable td:hover{background-color:#ddd;;cursor: pointer}
+            .selected{background-color: red;color: #fff;font-weight: bold}
+          
+#th {
+   border: 1px solid black;
+}
+#td {
+   border: 1px solid black;
+}
+.scrollable {
+   height: 450px;
+   width: 100%;
+   overflow-y: auto;
+}
+
+nav.breadcrumb ol {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+nav.breadcrumb li {
+  display: inline;
+}
+
+nav.breadcrumb li + li::before {
+  display: inline-block;
+  margin: 0 .25em;
+  transform: rotate(15deg);
+  border-right: .1em solid currentColor;
+  height: .8em;
+  content: '';
+}
+
+nav.breadcrumb [aria-current="page"] {
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+.tabs {
+  position: relative;   
+  min-height: 200px; /* This part sucks */
+  clear: both;
+  margin: 25px 0;
+}
+.tab {
+  float: left;
+}
+.tab label {
+  background: #eee; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  margin-left: -1px; 
+  position: relative;
+  left: 1px; 
+}
+.tab [type=radio] {
+  display: none;   
+}
+.content {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  border: 1px solid #ccc; 
+  height: 500px;
+  width: 70%;
+}
+.tab label[for=number]
+{
+  background: #f9f9f9; 
+  margin-left: -1px; 
+  padding: 0px; 
+  border: none; 
+  position: relative;
+  left: 1px; 
+}
+.tab label[for=MDS_text] {
+  background: #f9f9f9; 
+  margin-left: -1px; 
+  padding: 0px; 
+  border: none; 
+  position: relative;
+  left: 1px; 
+}
+.tab label[for=bins] {
+  background: #f9f9f9; 
+  margin-left: -1px; 
+  padding: 0px; 
+  border: none; 
+  position: relative;
+  left: 1px; 
+}
+.tab label[for=MDS_color] {
+  background: #f9f9f9; 
+  margin-left: -1px; 
+  padding: 0px; 
+  border: none; 
+  position: relative;
+  left: 1px; 
+}
+.tab label[for=dendro] {
+  background: #f9f9f9; 
+  margin-left: -1px; 
+  padding: 0px; 
+  border: none; 
+  position: relative;
+  left: 1px; 
+}
+[type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+[type=radio]:checked ~ label ~ .content {
+  z-index: 1;
+}

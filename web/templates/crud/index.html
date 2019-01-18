@@ -1,0 +1,253 @@
+{% extends 'crud/base.html' %}
+
+{% block styles %}<link rel="stylesheet" href="\static\crud\css\style.css">{% endblock %}
+{% block content %}
+
+<body>
+<form method="post" action="/crud/results/"> 
+{% csrf_token %} 
+<div class="container">
+<fieldset>
+<input type="text" name="metrics_text_rooted" id="metrics_text_rooted" style="display: none" value=" "/>
+<input type="text" name="metrics_text_unrooted" id="metrics_text_unrooted" style="display: none" value=" "/>
+<legend><b> Metrics </b> </legend>
+
+<table>
+    <tr>
+        
+        <td><select name="test" id="dropdown1" onchange="displayForm(this)">
+               <option value="Robinson-Fould" selected>Robinson-Fould</option>
+               <option value="Kendall-Colijn" >Kendall-Colijn</option>
+               <option value="Quartets">Quartets</option>
+               <option value="Triplets">Triplets</option>
+            </select></td>
+    
+       
+        <td><input type="number" style="display: none"  id="stepp" placeholder="Lmd" step="0.05" min="0" max="1"></td>
+        <td><input type="button" id="add" value="Add" onclick="Javascript:addRow()"></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+
+</fieldset>
+</div>
+<br>
+  
+   
+    <input type="hidden" name="flag" value="False"/>
+    <br>
+    <div class="container">
+    
+    <fieldset>
+    <div id="mydata_rooted" style="display: none">
+    <div id="div1">
+        
+        
+        Selected Rooted metrics
+        <table class="wp-table" id="myTableData_rooted"  name="myTableData_rooted" border="1" cellpadding="2"  >
+            <tr>
+                <td>Metric</td>
+                <td>lambda</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        &nbsp;<br/>
+        </div>
+        
+     </div>
+     <div id="mydata_unrooted" style="display: none">
+     <div id="div2">
+        
+        
+        Selected Unrooted metrics
+        <table class="wp-table" id="myTableData_unrooted"  name="myTableData_unrooted" border="1" cellpadding="2"  >
+            <tr>
+                <td>Metric</td>
+                <td>lambda</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        &nbsp;<br/>
+        </div>    
+       
+       </div> 
+    </fieldset>
+    
+   
+    
+    <div>
+
+
+  <input type="file" id="myFile">
+<hr>
+    <br>
+         <legend><b> Newick data: </b> </legend>
+       
+    
+   
+    <textarea name="input"  cols="30" rows="5" id="output"></textarea>
+    
+    </form>
+    
+    <div id="container_button">
+   
+    <button type="button home-button" id="button1" >Submit</button>
+    <button type="reset" id="button2" onclick="clearAnswer()">Reset</button>
+    </div>
+
+<script>
+var input = document.getElementById("myFile");
+var output = document.getElementById("output");
+
+input.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    var myFile = this.files[0];
+    var reader = new FileReader();
+
+    reader.addEventListener('load', function (e) {
+      output.textContent = e.target.result;
+    });
+
+    reader.readAsBinaryString(myFile);
+  }
+});
+ function clearAnswer()
+    {   
+        document.getElementById("output").innerHTML = '';
+    }
+    
+function addRow() {
+    
+         
+    var myName = document.getElementById("dropdown1");
+    var age = document.getElementById("stepp");
+    if(myName.value=="Triplets" || myName.value=="Kendall-Colijn"){
+        var table = document.getElementById("myTableData_rooted");
+        var table_div=document.getElementById('mydata_rooted');
+        var st_table='<input type="button" value = "Delete" onClick="Javacsript:deleteRow_rooted(this)">'
+        var text = document.getElementById("metrics_text_rooted");
+       }
+    else{
+          
+         var table = document.getElementById("myTableData_unrooted") 
+         var table_div=document.getElementById('mydata_unrooted');
+         var st_table='<input type="button" value = "Delete" onClick="Javacsript:deleteRow_unrooted(this)">'
+         var text = document.getElementById("metrics_text_unrooted");
+       
+       }
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        if( rowCount==1){
+             table_div.style.display = "block";
+        }
+        
+        row.insertCell(0).innerHTML= myName.value;
+        row.insertCell(1).innerHTML= age.value;    
+        row.insertCell(2).innerHTML= st_table;
+        
+        text.value =""
+        
+        for (var i = 0; i < rowCount; i++) {
+            
+            text.value =  text.value +  table.rows[i+1].cells[0].innerHTML + table.rows[i+1].cells[1].innerHTML +";";
+            
+        
+       }
+      }
+      
+
+function deleteRow_rooted(obj) {
+     
+    var index = obj.parentNode.parentNode.rowIndex;
+    var table = document.getElementById("myTableData_rooted");
+    
+
+    var rowCount = table.rows.length;
+   
+    if( rowCount<3){
+        document.getElementById('mydata_rooted').style.display = "none";
+    }
+    table.deleteRow(index);
+    var text = document.getElementById("metrics_text_rooted");
+        text.value =""
+        
+        for (var i = 0; i < rowCount; i++) {
+            
+            text.value =  text.value +  table.rows[i+1].cells[0].innerHTML + table.rows[i+1].cells[1].innerHTML +";";
+            
+        
+       }
+   
+}
+function deleteRow_unrooted(obj) {
+     
+    var index = obj.parentNode.parentNode.rowIndex;
+    var table = document.getElementById("myTableData_unrooted");
+    
+
+    var rowCount = table.rows.length;
+   
+    if( rowCount<3){
+        document.getElementById('mydata_unrooted').style.display = "none";
+    }
+    table.deleteRow(index);
+   var text = document.getElementById("metrics_text_unrooted");
+        text.value =""
+        
+        for (var i = 0; i < rowCount; i++) {
+            
+            text.value =  text.value +  table.rows[i+1].cells[0].innerHTML + table.rows[i+1].cells[1].innerHTML +";";
+            
+        
+       }
+}
+
+function addTable() {
+     
+    var myTableDiv = document.getElementById("myDynamicTable");
+     
+    var table = document.createElement('TABLE');
+    table.border='1';
+   
+    var tableBody = document.createElement('TBODY');
+    table.appendChild(tableBody);
+     
+    for (var i=0; i<3; i++){
+       var tr = document.createElement('TR');
+       tableBody.appendChild(tr);
+      
+       for (var j=0; j<4; j++){
+           var td = document.createElement('TD');
+           td.width='75';
+           td.appendChild(document.createTextNode("Cell " + i + "," + j));
+           tr.appendChild(td);
+       }
+    }
+    myTableDiv.appendChild(table);
+   
+}
+
+function load() {
+   
+    console.log("Page load finished");
+
+}
+
+function displayForm(elem){
+   if(elem.value == "Kendall-Colijn") {
+     
+      document.getElementById('stepp').style.display = "block";
+    } else {
+      document.getElementById('stepp').style.display = "none";
+      document.getElementById('stepp').value="";
+      
+    }
+}
+</script>    
+</body>
+{% endblock %}

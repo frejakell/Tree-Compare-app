@@ -1,0 +1,256 @@
+{% extends 'crud/base.html' %}
+
+
+{% block styles %}<link rel="stylesheet" href="\static\crud\css\style_edit.css">{% endblock %}   
+{% block content %}
+    
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol>
+    <li>
+      <a href="../../">
+        Configuration
+      </a>
+    </li>
+    <li>
+      <a href="../../#aria_ex">
+        Results
+      </a>
+    </li>
+    
+  </ol>
+</nav>     	  
+</header>
+
+<br>
+<div class="container">
+<br>
+  <legend>Custom Results Layout</legend>
+
+    <fieldset>
+       <form action="/crud/results_c/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="list_m" id="list_m" value={{list_m}}/>
+    <label style="font-size: 15px" >Metric: </label>
+    <select name="myselect" id="myselect" onchange="this.form.submit()">
+    
+       <option value="-1" selected>{{selected}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+    </form>
+    <br>
+    <form method="post" action="/crud/split/"> 
+        {% csrf_token %}
+        
+     <input type="hidden" name="split_type" value="True"/>
+      
+    <button type="button home-button" id="button_view" >Split view</button>
+    </form> 
+    <br>
+    <form method="post" action="/crud/viewer/"> 
+    {% csrf_token %}
+    <input type="hidden" name="Tree1" value="1"/>
+    <input type="hidden" name="Tree2" value="1"/>
+    <input type="hidden" name="metric" value="select"/>
+    <input type="hidden" name="leftsideMenu" value="list"/>
+    <button type="button home-button" id="button1" >Tree Viewer</button>
+    </form>   
+   
+    </fieldset>
+    
+    </div>
+<br>
+
+<div class="tabs">
+    
+   <div class="tab">
+       <input type="radio" id="tab-1" name="tab-group-1" checked="checked" >
+       <label for="tab-1">Matrix</label>
+       
+       <div class="content">
+                    <div class="scrollable">
+    <!-- Your table -->
+    
+    <table   >
+    <thead>
+<tr>
+{% for i in Tree_list%}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+    {% for row in table_select %}
+        <tr>
+        {% for cell in row %}
+            {% if forloop.first or forloop.parentloop.first %} <td> {% else %} <td> {% endif %}
+             <a>{{ cell }}</a>   
+            {% if forloop.first or forloop.parentloop.first %} </td> {% else %} </td> {% endif %}  
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+</div>
+       </div> 
+   </div>
+    
+   <div class="tab">
+       <input type="radio" id="tab-2" name="tab-group-1" checked="True">
+       <label for="tab-2">Visuals</label>
+       
+       <div class="content">
+            <div class="col-right">
+            <div class="grow"  >
+            <b>Settings</b> 
+            <form action="">
+            <input type="radio" name="vis" id="HeatMap_rb" value="HeatMap" onClick="hideA()" style="display: inline;"> HeatMap
+            <input type="radio" name="vis" id="Histogram_rb" value="Histogram"  onClick="hideB()" style="display: inline;">Histogram
+            <input type="radio" name="vis" id="DendroGram_rb" value="Dendrogram"  onClick="hideB()" style="display: inline;">Dendrogram
+            <input type="radio" name="vis" id="MSD_rb" value="MSD Plot" onClick="hideC()" style="display: inline;">MSD Plot<br>
+            <fieldset id="settings">
+            
+            
+            <input type="checkbox"  id="bins" name="MDS_color" >
+            
+            <label for="bins" id="testing">Auto number of Bins</label><br>
+            <input type="checkbox"  id="MDS_color" name="MDS_color" value="yes">
+                  
+            <label  for="MDS_color">Shows Cluster</label>
+            <br>         
+            <input type="checkbox" id="MDS_text" name="MDS_text" value="yes">
+                        
+            <label  for="MDS_text">Shows Labels</label> 
+            <br>            
+            <input type="checkbox" id="dendro" name="dendro" value="yes">
+            <label  for="dendro">Include Dendrogram</label>  
+            
+            </fieldset>
+            </form>
+            
+            <button type="button home-button" id="appVis" onclick="rouge()" >Apply</button>
+            </div>
+           <div >
+            <img id="pic" src={% url 'MDS_Color' t1=0 %} width="720px" >
+           </div>     
+          
+  
+           
+            <br>
+
+       </div> 
+   </div>
+    
+    <div class="tab">
+       <input type="radio" id="tab-3" name="tab-group-1" checked="False">
+       <label for="tab-3">Center Tree</label>
+     
+       <div class="content" id="Center_Output" >
+       <div class="grow" >
+            <b>Settings</b> 
+            <form action="">
+            <input type="radio" name="vis" id="center_cluster" value="center_cluster" onClick="Set_clus()" style="display: inline;"> Center Cluster
+            <br>
+            <input type="radio" name="vis" id="center_main" value="center_main"  onClick="Set_clus()" style="display: inline;">Center Full
+         
+            </fieldset>
+            </form>
+            
+            <button type="button home-button" id="appVis_Center" >Apply</button>
+            </div>
+         <div>
+         <textarea name="input"  cols="100" rows="30" id="output_center">{{Centers}}</textarea> 
+         </div>
+         
+      </div>
+       
+       </div> 
+   </div>
+</div>   
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+
+
+function rouge() {
+    var pic = document.getElementById('pic');
+   
+   
+    
+    if(document.getElementById("MSD_rb").checked == true){
+    
+    
+    var source= "{% url 'MDS_Color' t1=0 %}"
+    pic.src = source;
+    }
+    if(document.getElementById("Histogram_rb").checked == true){
+    pic.src = "{% url 'Hist_plot' t1=0  %}";
+    }
+    if(document.getElementById("HeatMap_rb").checked == true){
+    pic.src = "{% url 'HM_Plot' t1=0 %}";
+    }
+   
+};
+
+
+
+function hideA()
+{
+
+    document.getElementById("MDS_color").disabled = true;
+    document.getElementById("MDS_text").disabled = true;
+    document.getElementById("MDS_color").checked = false;
+    document.getElementById("MDS_text").checked = false;
+    document.getElementById("bins").disabled = true;
+    document.getElementById("dendro").disabled = false;    
+
+};
+
+function hideB()
+{
+    document.getElementById("MDS_color").disabled = true;
+    document.getElementById("MDS_text").disabled = true;
+    document.getElementById("dendro").disabled = true;
+    document.getElementById("dendro").checked = false;
+    document.getElementById("MDS_color").checked = false;
+    document.getElementById("MDS_text").checked = false;
+    document.getElementById("bins").disabled = false;
+
+};
+
+function hideC()
+{
+    document.getElementById("bins").disabled = true;
+    document.getElementById("bins").checked = false;
+    document.getElementById("dendro").disabled = true;
+    document.getElementById("dendro").checked = false;
+    document.getElementById("MDS_color").disabled = false;
+    document.getElementById("MDS_text").disabled = false;
+    
+
+};
+
+ var table = document.getElementById("innerTable"),rIndex,cIndex;
+            
+            // table rows
+            for(var i = 1; i < table.rows.length; i++)
+            {
+                // row cells
+                for(var j = 0; j < table.rows[i].cells.length; j++)
+                {
+                    table.rows[i].cells[j].onclick = function()
+                    {
+                        rIndex = this.parentElement.rowIndex;
+                        cIndex = this.cellIndex+1;
+                        console.log("Row : "+rIndex+" , Cell : "+cIndex);
+                    };
+                }
+            }
+
+document.getElementById('appVis').addEventListener('click', rouge);
+</script>
+{% endblock %}

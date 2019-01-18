@@ -1,0 +1,416 @@
+{% extends 'crud/base.html' %}
+
+
+{% block styles %}<link rel="stylesheet" href="\static\crud\css\style_edit_sec.css">{% endblock %}   
+{% block content %}
+    
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol>
+    <li>
+      <a href="../../">
+        Configuration
+      </a>
+    </li>
+    <li>
+      <a href="../../#aria_ex">
+        Results
+      </a>
+    </li>
+    
+  </ol>
+</nav>     	  
+</header>
+<br>
+<div class="container">
+<br>
+  <legend>Custom Results Layout</legend>
+
+    <fieldset>
+       <form action="/crud/split/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="list_m" id="list_m" value={{list_m}}/>
+    
+    <div class=left_m>
+    <label for="required-input">Metric1: </label>
+    <select name="myselect1" id="myselect1" onchange="this.form.submit()">
+    
+       <option value="{{selected1}}" selected>{{selected1}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+    </div>
+      <div class=right_m>
+    <label for="required-input">Metric2: </label>
+    <select name="myselect2" id="myselect2" onchange="this.form.submit()">
+    
+       <option value="{{selected2}}" selected>{{selected2}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+    </div>
+    <br>
+    <div class=left_m>
+    <label for="required-input">Metric3: </label>
+    <select name="myselect3" id="myselect3" onchange="this.form.submit()">
+    
+       <option value="{{selected3}}" selected>{{selected3}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+    </div>
+    <div class=right_m>
+    <label for="required-input">Metric4: </label>
+    <select name="myselect4" id="myselect4" onchange="this.form.submit()">
+    
+       <option value="{{selected4}}" selected>{{selected4}}</option>
+    {% for i in list_m %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+    </select>
+    </div>
+    <input type="hidden" name="split_type" value="False"/>
+  
+    </form>
+    <br>
+    <div class=left_m>
+     <form method="post" action="/crud/results_c/"> 
+        {% csrf_token %}
+        
+        
+      
+    <button type="button home-button" id="button_view" >Split view</button>
+    </form> 
+    </div>
+    <div class=right_m>
+    <form method="post" action="/crud/viewer/"> 
+    {% csrf_token %}
+    <input type="hidden" name="Tree1" value="1"/>
+    <input type="hidden" name="Tree2" value="2"/>
+    <input type="hidden" name="metric" value="select"/>
+
+    <button type="button home-button" id="button1" >Tree Viewer</button>
+    </form> 
+    </div>    
+   
+    </fieldset>
+    
+    </div>
+<br>
+
+<div class="tabs">
+    
+   <div class="tab">
+       <input type="radio" id="tab-1" name="tab-group-1" checked>
+       <label for="tab-1">Matrix</label>
+       
+       <div class="content">
+  
+        <div class=left>
+        <div class="scrollable">
+    <!-- Your table -->
+    
+     <table   >
+    <thead>
+<tr>
+{% for i in Tree_list%}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+    {% for row in table_select1 %}
+        <tr>
+        {% for cell in row %}
+            {% if forloop.first or forloop.parentloop.first %} <td> {% else %} <td> {% endif %}
+             <a>{{ cell }}</a>   
+            {% if forloop.first or forloop.parentloop.first %} </td> {% else %} </td> {% endif %}  
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+</div>
+</div>
+      
+        <div class=right>
+        <div class="scrollable">
+    <!-- Your table -->
+    
+           <table   >
+    <thead>
+<tr>
+{% for i in Tree_list%}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+    {% for row in table_select2 %}
+        <tr>
+        {% for cell in row %}
+            {% if forloop.first or forloop.parentloop.first %} <td> {% else %} <td> {% endif %}
+             <a>{{ cell }}</a>   
+            {% if forloop.first or forloop.parentloop.first %} </td> {% else %} </td> {% endif %}  
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+       </div> 
+   </div>
+     <div class=left>
+        <div class="scrollable">
+    <!-- Your table -->
+    
+   <table   >
+    <thead>
+<tr>
+{% for i in Tree_list%}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+    {% for row in table_select3 %}
+        <tr>
+        {% for cell in row %}
+            {% if forloop.first or forloop.parentloop.first %} <td> {% else %} <td> {% endif %}
+             <a>{{ cell }}</a>   
+            {% if forloop.first or forloop.parentloop.first %} </td> {% else %} </td> {% endif %}  
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+</div>
+</div>
+      
+        <div class=right>
+        <div class="scrollable">
+    <!-- Your table -->
+    
+     <table   >
+    <thead>
+<tr>
+{% for i in Tree_list%}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+    {% for row in table_select4 %}
+        <tr>
+        {% for cell in row %}
+            {% if forloop.first or forloop.parentloop.first %} <td> {% else %} <td> {% endif %}
+             <a>{{ cell }}</a>   
+            {% if forloop.first or forloop.parentloop.first %} </td> {% else %} </td> {% endif %}  
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+       </div> 
+   </div>
+      
+    </div>
+    </div>
+   <div class="tab">
+       <input type="radio" id="tab-2" name="tab-group-1">
+       <label for="tab-2">Visuals</label>
+       
+       <div class="content">
+       <div class="left">
+            <div class="col-right">
+           <div class="grow"  >
+            <b>Settings</b> 
+            <form action="">
+            <input type="radio" name="vis" id="HeatMap_rb" value="HeatMap" onClick="hideA()" style="display: inline;"> HeatMap
+            <input type="radio" name="vis" id="Histogram_rb" value="Histogram"  onClick="hideB()" style="display: inline;">Histogram
+            <input type="radio" name="vis" id="DendroGram_rb" value="Dendrogram"  onClick="hideB()" style="display: inline;">Dendrogram
+            <input type="radio" name="vis" id="MSD_rb" value="MSD Plot" onClick="hideC()" style="display: inline;">MSD Plot<br>
+            <fieldset id="settings">
+            
+            
+            <input type="checkbox"  id="bins" name="MDS_color" >
+            <label for="bins" id="testing">AUTO set number of Bins</label><br>
+            <input type="checkbox"  id="MDS_color" name="MDS_color" value="yes"> 
+            <label  for="MDS_color">Shows Cluster:</label>
+                      
+            <input type="checkbox" id="MDS_text" name="MDS_text" value="yes">
+            <label  for="MDS_text">Shows Labels:</label> 
+                      
+            <input type="checkbox" id="dendro" name="dendro" value="yes">
+            <label  for="dendro">Include Dendrogram:</label>  
+            </div>
+            <br>
+             
+             
+            
+            <img id="pic1" src={% url 'MDS_Color' t1=1  %} width="400px" >
+            
+       
+  <button type="button home-button" id="appVis1" >Apply</button>
+  </div>
+ </div>
+ <div class="left">
+            <div class="col-right">
+            <div class="grow" style="background-color: #2a75a9;">
+            <h4>Settings</h4> 
+            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature</p>
+            <div id="radio-group">
+            <input type="radio" name="rg">HeatMap<br>
+            <input type="radio" name="rg">Histogram<br>
+            <input type="radio" name="rg">MSD Plot<br>
+            </div>
+            <select name="test" id="dropdown1" onchange="callFun(this.value,slider1.value)">
+               <option value="HeatMap" selected>Heat Map</option>
+               <option value="Histogram" >Histogram</option>
+               <option value="MSD Plot">MSD Plot</option>
+            </select>
+            
+            <button type="button home-button" id="appVis2" >Apply</button>
+            </div>
+            <br>
+           <div>
+            
+            <img id="pic2" src={% url 'MDS_Color' t1=2 %} width="400px" >
+            </div>
+       
+  
+  </div>
+ </div>
+        <div class="left">
+            <div class="col-right">
+            <div class="grow" style="background-color: #2a75a9;">
+            <h4>Settings</h4> 
+            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature</p>
+            <div id="radio-group">
+            <input type="radio" name="rg">HeatMap<br>
+            <input type="radio" name="rg">Histogram<br>
+            <input type="radio" name="rg">MSD Plot<br>
+            </div>
+            <select name="test" id="dropdown1" onchange="callFun(this.value,slider1.value)">
+               <option value="HeatMap" selected>Heat Map</option>
+               <option value="Histogram" >Histogram</option>
+               <option value="MSD Plot">MSD Plot</option>
+            </select>
+            <button type="button home-button" id="appVis2" >Apply</button>
+            </div>
+            <br>
+             
+             
+            
+            <img id="pic1" src={% url 'MDS_Color' t1=3 %} width="400px" >
+            
+       
+  <button type="button home-button" id="appVis1" >Apply</button>
+  </div>
+ </div>
+ <div class="left">
+            <div class="col-right">
+            <div class="grow" style="background-color: #2a75a9;">
+            <h4>Settings</h4> 
+            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature</p>
+            <div id="radio-group">
+            <input type="radio" name="rg">HeatMap<br>
+            <input type="radio" name="rg">Histogram<br>
+            <input type="radio" name="rg">MSD Plot<br>
+            </div>
+            <select name="test" id="dropdown1" onchange="callFun(this.value,slider1.value)">
+               <option value="HeatMap" selected>Heat Map</option>
+               <option value="Histogram" >Histogram</option>
+               <option value="MSD Plot">MSD Plot</option>
+            </select>
+            
+            <button type="button home-button" id="appVis2" >Apply</button>
+            </div>
+            <br>
+           <div>
+            
+            <img id="pic2" src={% url 'MDS_Color' t1=4 %} width="400px" >
+            </div>
+       
+  
+  </div>
+ </div>
+       </div> 
+   </div>
+    
+    <div class="tab">
+       <input type="radio" id="tab-3" name="tab-group-1">
+       <label for="tab-3">Center Tree</label>
+     
+       <div class="content">
+       <div class="left">
+         <textarea name="input1"  cols="60" rows="19" style="display:block;" id="output_center">{{Centers1}}</textarea>
+       </div>  
+      <div class="right">
+         <textarea name="input2"  cols="60" rows="19" style="display:block;" id="output_center2">{{Centers2}}</textarea>
+       </div>  
+       <div class="left">
+         <textarea name="input3"  cols="60" rows="19" style="display:block;" id="output_center">{{Centers3}}</textarea>
+       </div>  
+      <div class="right">
+         <textarea name="input4"  cols="60" rows="19" style="display:block;" id="output_center2">{{Centers4}}</textarea>
+       </div>  
+      
+      </div>
+       </div> 
+   </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+var pic = document.getElementById('pic1');
+var pic2 = document.getElementById('pic2');
+document.getElementById('appVis1').addEventListener('click', rouge);
+function rouge() {
+    var e = document.getElementById("dropdown1");
+    var value = e.options[e.selectedIndex].value;
+    if(value=="MSD Plot"){
+    pic.src = "/crud/another_plot";
+    }
+    if(value=="Histogram"){
+    pic.src = "/crud/New_plot";
+    }
+    if(value=="HeatMap"){
+    pic.src = "/crud/plot";
+    }
+};
+
+
+
+
+ var table = document.getElementById("innerTable"),rIndex,cIndex;
+            
+            // table rows
+            for(var i = 1; i < table.rows.length; i++)
+            {
+                // row cells
+                for(var j = 0; j < table.rows[i].cells.length; j++)
+                {
+                    table.rows[i].cells[j].onclick = function()
+                    {
+                        rIndex = this.parentElement.rowIndex;
+                        cIndex = this.cellIndex+1;
+                        console.log("Row : "+rIndex+" , Cell : "+cIndex);
+                    };
+                }
+            }
+
+
+</script>
+{% endblock %}

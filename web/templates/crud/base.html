@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    
+    {% load static %}
+    {% block styles %}
+    {% endblock %}
+	
+</head>
+<header>
+	
+            	  
+		
+   <nav>
+	<ul>
+		<li><a href="#">Home</a></li>
+		<li><a href="#">Tutorials</a>
+			<ul>
+				<li><a href="#">UI</a></li>
+				<li><a href="#">Metrics</a></li>
+				<li><a href="#">Results</a>
+					<ul>
+						<li><a href="#">visuals</a></li>
+						<li><a href="#">summary</a></li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li><a href="#">About</a>
+			<ul>
+				<li><a href="#">Web Design</a></li>
+				<li><a href="#">Theory</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Contact</a></li>
+	</ul>
+</nav>
+</header>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </body>
