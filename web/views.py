@@ -33,7 +33,7 @@ def index(request):
    
     return render(request, 'crud/index.html')
 
-def results_c(request):
+def Results_Display(request):
     context = {}
     if request.method == 'POST':
         metric= request.POST.get('myselect')      
@@ -66,9 +66,9 @@ def results_c(request):
         print(metrics_list)
         context["list_m"]= metrics_list
        
-    return render(request, 'crud/edit.html',context)
+    return render(request, 'crud/Results_D.html',context)
 
-def edit(request):
+def Results(request):
     if request.method == 'POST':
         flag = request.POST.get('flag')
         m_text1 = request.POST.get('metrics_text_unrooted')
@@ -239,9 +239,9 @@ def edit(request):
         context["list_m"]=ls
         context["Tree_list"]=Tree_array
        
-        return render(request, 'crud/edit.html',context)
+        return render(request, 'crud/Results.html',context)
         
-def viewer(request):
+def Tree_View(request):
     
     t1 = request.POST.get('Tree1')
 
@@ -441,7 +441,7 @@ def split2(request):
         print(metrics_list)
         context["list_m"]= metrics_list
         return render(request, 'crud/Thrid_again.html', context)    
-def split(request):
+def Results_split(request):
     if request.method == 'POST':
         list_m=Metric.objects.get(name="Metrics")
         split_type= request.POST.get('split_type')
