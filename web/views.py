@@ -691,6 +691,11 @@ def MDS_text(request, t1):
    
     pos = mds.fit_transform(distances)
     xs, ys = pos[:, 0], pos[:, 1]
+      trees=[]
+    for x in range (0,len(gt)):
+        trees.append(str(x +1)) 
+    for x, y, name in zip(xs, ys, trees):
+        ax.text(x, y, "tree" + name)
     ax.scatter(xs, ys, c=fc)
    
     canvas=FigureCanvas(fig)
