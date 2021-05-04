@@ -13,3 +13,18 @@ The code included in this project is for reference purposes only. The complete c
 
 
 ![tree_views](https://user-images.githubusercontent.com/8816121/116958551-e76ce780-ac4f-11eb-839f-95f9569fa8a8.JPG)
+
+
+Two primary experiments were run through the tool.
+
+1. Compare the structures of RNA 
+2. Assess how well the public performed on the Great Language Game. 
+
+
+1. RNA Structures 
+
+
+2. Language Trees
+![heatmaps_Lanuage_trees](https://user-images.githubusercontent.com/8816121/116959527-b3df8c80-ac52-11eb-83bc-e8185539e384.JPG)
+
+
